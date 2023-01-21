@@ -1,0 +1,8 @@
+#2.Реализовать функцию, принимающую несколько параметров, описывающих данные пользователя: имя, фамилия, год рождения,
+#город проживания, email, телефон. Функция должна принимать параметры как именованные аргументы. Реализовать вывод данных о пользователе одной строкой.
+
+def user_info (first_name, last_name, year_of_birth, city_of_residence, email, phone):
+    print ("имя: %s, фамилия: %s, год рождения: %d, город проживания: %s, email: %s, телефон: %s"
+           %( first_name, last_name, year_of_birth, city_of_residence, email, phone) )
+
+user_info ("Ann", "Bush", 1991, "Moscow", "a@mail.ru", "101")
