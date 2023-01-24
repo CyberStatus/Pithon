@@ -5,9 +5,9 @@
 
 from functools import reduce
 
-a = int (input("Введите начало диапазона:"))
-b = int (input("Введите конец диапазона:"))
-my_list = [i for i in range (a,b+1) if i%2==0]
+a = int(input("Введите начало диапазона:"))
+b = int(input("Введите конец диапазона:"))
+my_list = [i for i in range(a, b+1) if i % 2 == 0]
 mult = reduce(lambda x, y: x*y, my_list)
-print ("Все четные числа от %d до %d:\n"%(a,b), my_list)
-print ("произведение всех элементов списка:\n", mult)
+print("Все четные числа от %d до %d:\n" % (a, b), my_list)
+print("произведение всех элементов списка:\n", mult)
