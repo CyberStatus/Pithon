@@ -4,12 +4,11 @@
 записать в него построчно данные, вводимые пользователем.
 Об окончании ввода данных будет свидетельствовать пустая строка.
 """
-out_f = open("out_file.txt", "w", encoding='utf-8')
 str_list = []
 while True:
     s_l = input("Введите строку для записи в файл. Пустая строка-конец ввода")
     if s_l == "":
         break
     str_list.append(s_l+"\n")
-out_f.writelines(str_list)
-out_f.close()
+with open("out_file.txt", "w", encoding='utf-8') as out_f:
+    out_f.writelines(str_list)
