@@ -1,0 +1,14 @@
+# 2
+"""
+Создать текстовый файл (не программно),
+сохранить в нём несколько строк,
+выполнить подсчёт строк и слов в каждой строке.
+"""
+
+with open("out_file.txt", "r", encoding='utf-8') as my_f:
+    content = my_f.readlines()
+with open("out_file.txt", "r", encoding='utf-8') as my_f:
+    words = my_f.read().split()
+
+print("строк: ", len(content))
+print("слов: ", len(words))

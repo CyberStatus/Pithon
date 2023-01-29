@@ -1,0 +1,13 @@
+"""
+5. Создать (программно) текстовый файл,
+записать в него программно набор чисел, разделённых пробелами.
+Программа должна подсчитывать сумму чисел в файле и выводить её на экран.
+"""
+with open("file_5_task.txt", "w", encoding='utf-8') as out_f:
+    out_f.write("1 3 12 44 556")
+
+with open("file_5_task.txt", "r", encoding='utf-8') as out_f:
+    ss = out_f.read().split()
+
+nums = [int(v.strip()) for v in ss]
+print("Сумма: ", sum(nums))
