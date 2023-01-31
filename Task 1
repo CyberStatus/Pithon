@@ -11,14 +11,15 @@
 
 from time import sleep
 
+
 class TrafficLight:
     __color = ['Красный', 'Желтый', 'Зеленый']
 
     def running(self, duration):
         spent = 0
         i = 0
-        while spent<duration:
-            pos = i%3
+        while spent < duration:
+            pos = i % 3
             print(TrafficLight.__color[pos])
             if pos == 0:
                 sleep(7)
