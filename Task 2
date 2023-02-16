@@ -1,0 +1,24 @@
+#2. Создайте собственный класс-исключение, обрабатывающий ситуацию деления на ноль. 
+Проверьте его работу на данных, вводимых пользователем.
+При вводе нуля в качестве делителя программа должна корректно обработать эту ситуацию и не завершиться с ошибкой.
+
+class My_ZeroDivisionError(ArithmeticError):
+    def _init_(self, txt):
+        super()._init_("Делить на ноль нельзя!" + txt)
+
+
+def my_div(f1, f2):
+    try:
+        if int(f2) == 0:
+            raise My_ZeroDivisionError("test")
+        else:
+            res = float(user_num_1) / float(user_num_2)
+            return res
+    except ArithmeticError as e:
+        print(f"{e}, {e._class_}")
+
+
+user_num_1 = input('Введите делимое: ')
+user_num_2 = input('Введите делитель: ')
+
+print(my_div(user_num_1, user_num_2))
