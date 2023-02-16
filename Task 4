@@ -1,0 +1,67 @@
+4. Начните работу над проектом «Склад оргтехники». Создайте класс, описывающий склад.
+А также класс «Оргтехника», который будет базовым для классов-наследников. 
+Эти классы — конкретные типы оргтехники (принтер, сканер, ксерокс). В базовом классе определите параметры, общие для приведённых типов. 
+В классах-наследниках реализуйте параметры, уникальные для каждого типа оргтехники.
+
+import math
+
+
+class Storage:
+    pass
+
+
+class OfficeAutomation:
+    printable = False
+    scannable = False
+
+    def _init_(
+            self,
+            brand: str,
+            vendor: str,
+            model: str,
+            color: str,
+            weight_brutto: float,
+            package_dimensions: list,  # Габариты (ШхВхГ) в миллиметрах
+    ):
+        self.vendor = vendor
+        self.model = model
+        self.color = color
+
+        self.package_dimensions = package_dimensions
+
+    @property
+    def volume_gross(self):
+        return math.prod(self.package_dimensions)/1000000000  # в метрах куб
+
+    def _str_(self):
+        return f"{type(self)._name_} {self.vendor} {self.model} ({self.color})"
+
+
+class Printer(OfficeAutomation):
+    printable = True
+    scannable = False
+
+    def _init_(self, *args):
+        super()._init_(*args)
+
+
+class Scanner(OfficeAutomation):
+    printable = False
+    scannable = True
+
+    def _init_(self, *args):
+        super()._init_(*args)
+
+
+class Copier(OfficeAutomation):
+    printable = True
+    scannable = True
+
+    def _init_(self, *args):
+        super()._init_(*args)
+
+
+if _name_ == '_main_':
+    p1 = Printer("Epson", "XP-400", "white", 4000, 4.1, [391, 145, 300])
+    print(p1)
+    print(p1.volume_gross)
