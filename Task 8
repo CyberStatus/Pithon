@@ -1,0 +1,49 @@
+#1. Реализовать класс «Дата», функция-конструктор которого должна принимать дату в виде строки формата «день-месяц-год».
+В рамках класса реализовать два метода. Первый, с декоратором @classmethod. Он должен извлекать число, месяц, 
+год и преобразовывать их тип к типу «Число». Второй, с декоратором @staticmethod, должен проводить валидацию числа, месяца и года 
+(например, месяц — от 1 до 12). 
+Проверить работу полученной структуры на реальных данных.
+
+class Data:
+    day_month_year = '1-1-1'
+    
+    def _init_(self, day_month_year):
+        self.day_month_year = str(day_month_year)
+
+    @classmethod
+    def data_struct(cls, a_data):
+        return [int(i) for i in a_data.day_month_year.split('-')]
+
+    @staticmethod
+    def valid(day, month, year):
+        if 1 <= day <= 31:
+            if 1 <= month <= 12:
+                if month == 2:
+                    if 30 <= day <= 31:
+                        return False
+                    elif day == 29:
+                        if year % 4 != 0:
+                            return False
+                        elif year % 100 == 0:
+                            if year % 400 != 0:
+                                return False
+                if 9999 >= year >= 0:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+
+    def _str_(self):
+        return f'Текущая дата {self.data_struct(self)}'
+
+
+today = Data('12 - 2 - 2022')
+print(today)
+print(Data.valid(11, 11, 2022))
+print(Data.valid(29, 2, 1700))
+print(today.valid(11, 13, 2011))
+print(Data.data_struct(today))
+print(Data.valid(1, 11, 2000))
