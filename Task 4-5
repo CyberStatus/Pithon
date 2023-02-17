@@ -4,10 +4,39 @@
 В классах-наследниках реализуйте параметры, уникальные для каждого типа оргтехники.
 
 import math
+from collections import defaultdict
+import datetime
 
 
 class Storage:
-    pass
+    store = defaultdict(int)
+    inventory_book = []
+
+    def _init_(self, name):
+        self.name = name
+
+    def add_equipment(self, item, count):
+        self.store[str(item)] += count
+        now = datetime.datetime.now()
+        self.inventory_book.append((now, 'income', str(item), count))
+
+    def move_equipment(self, item, count, dept):
+        self.store[str(item)] -= count
+        now = datetime.datetime.now()
+        self.inventory_book.append((now, 'outcome', str(item), count, dept))
+
+    def _str_(self):
+        output = f'{self.name}:\n'
+        for k, q in self.store.items():
+            output += f'-{k}:{q}\n'
+        return output
+
+    @property
+    def history(self):
+        output = f'История движений по {self.name}:\n'
+        for rec in self.inventory_book:
+            output += f'-{rec}\n'
+        return output
 
 
 class OfficeAutomation:
@@ -34,7 +63,8 @@ class OfficeAutomation:
         return math.prod(self.package_dimensions)/1000000000  # в метрах куб
 
     def _str_(self):
-        return f"{type(self)._name_} {self.vendor} {self.model} ({self.color})"
+        t = type(self)._name_
+        return f"{t} {self.vendor} {self.model} ({self.color})"
 
 
 class Printer(OfficeAutomation):
@@ -62,6 +92,12 @@ class Copier(OfficeAutomation):
 
 
 if _name_ == '_main_':
-    p1 = Printer("Epson", "XP-400", "white", 4000, 4.1, [391, 145, 300])
-    print(p1)
-    print(p1.volume_gross)
+    p1 = Printer("Epson", "China", "XP-400", "white",  4.1, [391, 145, 300])
+    s1 = Scanner("Canon", "China", "CanoScan LiDE 400", "black",
+                 1.7, [250, 39, 365])
+    st = Storage('Мой склад')
+    st.add_equipment(p1, 1)
+    st.add_equipment(s1, 2)
+    st.move_equipment(s1, 1, "office")
+    print(st)
+    print(st.history)
