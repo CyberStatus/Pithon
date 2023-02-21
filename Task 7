@@ -1,0 +1,57 @@
+# 7. Реализовать проект «Операции с комплексными числами». Создайте класс «Комплексное число». Реализуйте перегрузку методов сложения и умножения комплексных чисел. 
+Проверьте работу проекта.
+Для этого создаёте экземпляры класса (комплексные числа), выполните сложение и умножение созданных экземпляров. Проверьте корректность полученного результата.
+
+import math
+
+
+class Complex(object):
+    def _init_(self, real, imag=0.0):
+        self.real = real
+        self.imag = imag
+
+    def _add_(self, other):
+        return Complex(self.real + other.real,
+                       self.imag + other.imag)
+
+    def _sub_(self, other):
+        return Complex(self.real - other.real,
+                       self.imag - other.imag)
+
+    def _mul_(self, other):
+        return Complex(self.real*other.real - self.imag*other.imag,
+                       self.imag*other.real + self.real*other.imag)
+
+    def _div_(self, other):
+        sr, si, or_r, oi = self.real, self.imag,
+        other.real, other.imag
+        r = float(or_r*2 + oi*2)
+        return Complex((sr*or_r+si*oi)/r, (si*or_r-sr*oi)/r)
+
+    def _abs_(self):
+        return sqrt(self.real*2 + self.imag*2)
+
+    def _neg_(self):   # defines -c (c is Complex)
+        return Complex(-self.real, -self.imag)
+
+    def _eq_(self, other):
+        return self.real == other.real and self.imag == other.imag
+
+    def _ne_(self, other):
+        return not self._eq_(other)
+
+    def _str_(self):
+        return '(%g + %gi)' % (self.real, self.imag)
+
+    def _repr_(self):
+        return 'Complex' + str(self)
+
+    def _pow_(self, power):
+        raise NotImplementedError('self**power is not yet impl. for Complex')
+
+
+z1 = Complex(1, 2)
+z2 = Complex(2, 3)
+
+print(f"{z1} + {z2} = ", z1 + z2)
+print(f"{z1} * {z2} = ", z1 * z2)
